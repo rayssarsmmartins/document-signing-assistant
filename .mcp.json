@@ -1,0 +1,7 @@
+{
+  "mcpServers": {
+    "clicksign": {
+      "url": "https://mcp.clicksign.com/mcp/oauth2"
+    }
+  }
+}

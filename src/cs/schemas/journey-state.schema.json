@@ -1,0 +1,394 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "journey-state.schema.json",
+  "title": "Estado de uma jornada de envio pontual",
+  "type": "object",
+  "required": [
+    "run_id",
+    "created_at",
+    "updated_at",
+    "node",
+    "document",
+    "signers",
+    "dispatch",
+    "metrics",
+    "events"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "run_id": {
+      "type": "string",
+      "pattern": "^[0-9]{8}-[0-9]{6}-[0-9a-f]{4}$"
+    },
+    "created_at": {
+      "type": "string"
+    },
+    "updated_at": {
+      "type": "string"
+    },
+    "node": {
+      "description": "Nó atual da jornada (ver .agents/commands/send-for-signature.md).",
+      "enum": [
+        "intake",
+        "read",
+        "signers",
+        "ask_signers",
+        "auth",
+        "review",
+        "dispatching",
+        "dispatched",
+        "abandoned",
+        "ask_new_file"
+      ]
+    },
+    "document": {
+      "type": "object",
+      "required": [
+        "filename",
+        "stored_path",
+        "sha256",
+        "status",
+        "can_send",
+        "can_read"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "filename": {
+          "type": "string",
+          "minLength": 1
+        },
+        "original_path": {
+          "type": "string"
+        },
+        "stored_path": {
+          "type": "string"
+        },
+        "text_path": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "extension": {
+          "type": "string"
+        },
+        "size_bytes": {
+          "type": "integer"
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "status": {
+          "enum": [
+            "ok",
+            "no_text",
+            "unreadable_format",
+            "encrypted",
+            "corrupt",
+            "unsupported_format",
+            "too_large"
+          ]
+        },
+        "can_send": {
+          "type": "boolean"
+        },
+        "can_read": {
+          "type": "boolean"
+        },
+        "pages": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "chars": {
+          "type": "integer"
+        },
+        "reason": {
+          "type": "string"
+        },
+        "replaced_sha256": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "origin": {
+          "enum": [
+            "local",
+            "telegram"
+          ],
+          "description": "De onde veio o arquivo."
+        },
+        "compressed_photo": {
+          "type": "boolean",
+          "description": "Foto comprimida do Telegram (o usuário mandou como foto, não como arquivo)."
+        }
+      }
+    },
+    "envelope_name": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Título do envio, como a persona vê."
+    },
+    "signers": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/signer"
+      }
+    },
+    "mentioned_non_signers": {
+      "type": "array",
+      "description": "Pessoas citadas no documento que não foram propostas como signatárias (E10).",
+      "items": {
+        "type": "object",
+        "required": [
+          "name"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "message": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Mensagem ao signatário (Click.AI)."
+    },
+    "summary": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "hash": {
+          "type": "string"
+        },
+        "shown_at": {
+          "type": "string"
+        }
+      }
+    },
+    "dispatch": {
+      "type": "object",
+      "required": [
+        "status"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "status": {
+          "enum": [
+            "none",
+            "ready",
+            "sent",
+            "failed",
+            "ambiguous"
+          ]
+        },
+        "payload_hash": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "prepared_at": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "upload_ref": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "file_url_expires_at": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "upload_deleted": {
+          "type": "boolean"
+        },
+        "envelope_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "envelope_status": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "deadline_at": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "sent_at": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "error": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "dry_run": {
+          "type": "boolean"
+        }
+      }
+    },
+    "metrics": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "questions_asked": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "edits": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "summaries_shown": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "user_turns": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "events": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "ts",
+          "kind"
+        ],
+        "properties": {
+          "ts": {
+            "type": "string"
+          },
+          "kind": {
+            "type": "string"
+          },
+          "node": {
+            "type": "string"
+          },
+          "detail": {}
+        }
+      }
+    },
+    "summary_notes": {
+      "type": "array",
+      "maxItems": 3,
+      "items": {
+        "type": "string",
+        "maxLength": 200
+      },
+      "description": "Linhas informativas curtas exibidas no resumo (ex.: espaço para testemunhas vazio)."
+    }
+  },
+  "$defs": {
+    "signer": {
+      "type": "object",
+      "required": [
+        "name",
+        "role",
+        "auth",
+        "source"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "email": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "phone": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Somente dígitos, 10 ou 11 (DDD + número)."
+        },
+        "role": {
+          "type": "string",
+          "description": "Papel canônico da API (ex.: sign, contractor, witness)."
+        },
+        "auth": {
+          "type": "string",
+          "description": "Método de confirmação de identidade (email, sms, whatsapp…)."
+        },
+        "group": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Ordem de assinatura; mesmo número = assinam em paralelo."
+        },
+        "source": {
+          "enum": [
+            "extracted",
+            "user"
+          ]
+        },
+        "confidence": {
+          "enum": [
+            "high",
+            "medium",
+            "low"
+          ]
+        },
+        "evidence": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Trecho do documento que justifica o signatário (E12)."
+        },
+        "email_evidence": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Trecho onde o e-mail aparece; e-mail sem evidência nem fonte do usuário é proibido."
+        },
+        "represents": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Empresa/pessoa que o signatário representa, quando houver."
+        }
+      }
+    }
+  }
+}

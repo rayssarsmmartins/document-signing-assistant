@@ -1,0 +1,20 @@
+# Segredos e configuração local
+.env
+.env.local
+
+# Estado das jornadas: contém documentos e dados pessoais (PII) — nunca versionar
+runs/
+
+# Python / uv
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+dist/
+build/
+*.egg-info/
+
+# Editor / SO
+.DS_Store
+*.swp
+.vscode/

@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# Wrapper do CLI `cs` — roda de qualquer diretório usando o projeto deste workspace.
+set -euo pipefail
+ROOT="$(cd -P -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd -P)"
+export CS_ROOT="$ROOT"
+exec uv run --quiet --project "$ROOT" cs "$@"

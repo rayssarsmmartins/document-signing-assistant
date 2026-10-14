@@ -1,0 +1,107 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "dispatch-args.schema.json",
+  "title": "Argumentos para clicksign_create_envelope_with_file_url",
+  "type": "object",
+  "required": [
+    "envelope",
+    "document",
+    "signers"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "envelope": {
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "remind_interval": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "document": {
+      "type": "object",
+      "required": [
+        "file_url",
+        "filename"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "file_url": {
+          "type": "string",
+          "pattern": "^https://"
+        },
+        "filename": {
+          "type": "string",
+          "pattern": "\\.(pdf|jpe?g|png|txt|docx?)$"
+        }
+      }
+    },
+    "notifications": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "signers": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "name",
+          "requirements"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "phone_number": {
+            "type": "string",
+            "pattern": "^[0-9]{10,11}$"
+          },
+          "group": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "requirements": {
+            "type": "array",
+            "minItems": 2,
+            "items": {
+              "type": "object"
+            }
+          },
+          "communicate_events": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "signature_request": {
+                "enum": [
+                  "email",
+                  "sms",
+                  "whatsapp",
+                  "none"
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
