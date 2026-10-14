@@ -1,6 +1,6 @@
 # send-for-signature — journey orchestration
 
-The conversational journey for the Pontual persona, nodes 1→6 of `JTBD_Persona_Pontual.md`.
+The conversational journey for the Pontual persona, nodes 1→6.
 This file owns **order, state transitions and failure handling**. The rules for each node live
 in the skills it points to: read a skill in full the first time its node comes up in the
 session.

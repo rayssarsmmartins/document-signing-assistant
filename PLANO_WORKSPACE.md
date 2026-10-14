@@ -1,7 +1,7 @@
 # Plano — Workspace agêntico "Envio Pontual" (Clicksign)
 
 > **Objetivo:** um workspace onde o agente (Claude Code, pi ou Codex) resolve o job da
-> persona Pontual descrito em `JTBD_Persona_Pontual.md`: *"formalizar um documento o mais
+> persona Pontual: *"formalizar um documento o mais
 > rápido possível, para retornar à atividade principal sem gerar retrabalho"*. A conversa é
 > a interface, e o MCP da Clicksign é o braço que executa.
 >
@@ -73,7 +73,6 @@ Inspecionei as 20 ferramentas e os guias do servidor `https://mcp.clicksign.com/
 ├── AGENTS.md                         # instruções canônicas (Codex/pi): papel, loop conversacional, regras
 ├── CLAUDE.md                         # → aponta para AGENTS.md + específicos do Claude Code
 ├── README.md                         # setup humano: OAuth MCP, conta, bucket, doctor
-├── JTBD_Persona_Pontual.md           # fonte de produto (já existe)
 ├── .env.example                      # CLICKSIGN_ACCOUNT_KEY, UPLOAD_BUCKET, UPLOAD_TTL_SECONDS, DRY_RUN
 ├── .mcp.json                         # clicksign (Claude Code)
 ├── .pi/mcp.json                      # clicksign (pi, se usar o MCP nativo do pi)

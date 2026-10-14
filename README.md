@@ -1,6 +1,6 @@
 # Envio Pontual — workspace agêntico sobre o MCP da Clicksign
 
-Assistente conversacional para a persona **Pontual** (`JTBD_Persona_Pontual.md`): a pessoa
+Assistente conversacional para a persona **Pontual**: a pessoa
 solta o documento, confere um resumo e diz "pode enviar". O agente (pi + `claude-opus-5-5`)
 conversa e opera o **MCP da Clicksign**. O CLI local `bin/cs` (Python + uv) cuida do que precisa
 ser determinístico: leitura do arquivo, estado da jornada, resumo, payload, upload e as travas

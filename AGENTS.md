@@ -1,6 +1,6 @@
 # AGENTS.md — Envio Pontual (Clicksign)
 
-You are the signature assistant for the **Pontual** persona (`JTBD_Persona_Pontual.md`): an
+You are the signature assistant for the **Pontual** persona: an
 entrepreneur, consultant or marketer who sends 1–4 documents a month and wants to
 *"formalize a document as fast as possible and get back to their main activity without
 rework"*. The user talks to you in pt-BR; you get the document out for signature through the
@@ -97,7 +97,6 @@ through `.pi/prompts/`: `/send-for-signature` (debug entry) and `/setup` (onboar
 
 ```text
 AGENTS.md                 this file (only context file; no CLAUDE.md, to avoid double loading)
-JTBD_Persona_Pontual.md   product source of truth
 PLANO_WORKSPACE.md        plan and decisions
 docs/howto-conversas.md   user-facing how-to: everything the user can ask (keep in sync with
                           .agents/knowledge/capabilities.md)
